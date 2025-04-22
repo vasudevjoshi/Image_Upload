@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Gallery</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    /* Fullscreen Modal Styles */
+    .fullscreen-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .fullscreen-modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+    }
+
+    .fullscreen-modal .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 24px;
+      color: #fff;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>Image Gallery</h1>
+  <div class="gallery">
+    <% if (images.length > 0) { %>
+      <% images.forEach(image => { %>
+        <div class="image-card">
+          <img src="<%= image.url %>" alt="Uploaded Image" class="gallery-image">
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p>No images uploaded yet.</p>
+    <% } %>
+  </div>
+
+  <!-- Fullscreen Modal -->
+  <div id="fullscreenModal" class="fullscreen-modal">
+    <button class="close-btn" id="closeModal">&times;</button>
+    <img id="fullscreenImage" src="#" alt="Full Screen Image">
+  </div>
+
+  <script>
+    const galleryImages = document.querySelectorAll('.gallery-image');
+    const fullscreenModal = document.getElementById('fullscreenModal');
+    const fullscreenImage = document.getElementById('fullscreenImage');
+    const closeModal = document.getElementById('closeModal');
+
+    // Add double-click event listener to each image
+    galleryImages.forEach(image => {
+      image.addEventListener('dblclick', () => {
+        fullscreenImage.src = image.src;
+        fullscreenModal.style.display = 'flex';
+      });
+    });
+
+    // Close the modal when the close button is clicked
+    closeModal.addEventListener('click', () => {
+      fullscreenModal.style.display = 'none';
+    });
+
+    // Close the modal when clicking outside the image
+    fullscreenModal.addEventListener('click', (e) => {
+      if (e.target === fullscreenModal) {
+        fullscreenModal.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

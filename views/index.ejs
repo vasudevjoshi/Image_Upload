@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>📷 Image Gallery</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Courier New', monospace;
+      background-color: #0d1117;
+      color: #c9d1d9;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+
+    .box {
+      background-color: #161b22;
+      padding: 30px;
+      border-radius: 15px;
+      border: 2px dashed #30363d;
+      width: 300px;
+      min-height: 300px;
+    }
+
+    .box h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .upload-icon,
+    .gallery-icon {
+      font-size: 40px;
+      margin-bottom: 10px;
+      color: #58a6ff;
+    }
+
+    .image-preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .image-preview img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    /* Button Styling */
+    .button-29 {
+      background-color: #238636;
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .button-29:hover {
+      background-color: #2ea043;
+      transform: scale(1.05);
+    }
+
+    .button-29:active {
+      background-color: #1f6f2e;
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+<body>
+  <h1>📷 Image Gallery</h1>
+
+  <div class="container">
+    <!-- Upload Images Box -->
+    <div class="box">
+      <div class="upload-icon"><i class="fas fa-upload"></i></div>
+      <h2>Upload Images</h2>
+      <form action="/api/image/upload" method="GET">
+        <br><br>
+        <button class="button-29" role="button">Upload</button>
+      </form>
+    </div>
+
+    <!-- Show Images Box -->
+    <div class="box">
+      <div class="gallery-icon"><i class="fas fa-images"></i></div>
+      <h2>Show Images</h2>
+      <div class="image-preview">
+        <form action="/api/image/getImages" method="GET">
+          <br><br>
+          <button class="button-29" role="button">View Gallery</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

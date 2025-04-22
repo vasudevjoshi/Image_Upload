@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Files</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>Upload Files</h1>
+  <form id="uploadForm" action="/api/image/upload" method="POST" enctype="multipart/form-data">
+    <label for="file">Choose File:</label>
+    <input type="file" id="fileInput" name="file" accept="image/*" required>
+    <br><br>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" rows="4" cols="50" placeholder="Enter a description for the file" required></textarea>
+    <br><br>
+
+    <div id="previewContainer">
+      <h3>File Preview:</h3>
+      <img id="filePreview" src="#" alt="File Preview" style="display: none; max-width: 300px;">
+      <p id="fileName"></p>
+      <button type="button" id="cancelButton" style="display: none;">Cancel</button>
+    </div>
+    <br>
+
+    <button type="submit">Upload</button>
+  </form>
+
+  <script>
+    const fileInput = document.getElementById('fileInput');
+    const filePreview = document.getElementById('filePreview');
+    const fileName = document.getElementById('fileName');
+    const cancelButton = document.getElementById('cancelButton');
+    const previewContainer = document.getElementById('previewContainer');
+
+    fileInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          filePreview.src = e.target.result;
+          filePreview.style.display = 'block';
+          fileName.textContent = `File Name: ${file.name}`;
+          cancelButton.style.display = 'inline-block';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    cancelButton.addEventListener('click', () => {
+      fileInput.value = '';
+      filePreview.style.display = 'none';
+      fileName.textContent = '';
+      cancelButton.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
